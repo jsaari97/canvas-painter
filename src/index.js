@@ -2,7 +2,7 @@ import Paint from './draw'
 import changeBrush from './changeBrush'
 import createCanvas from './createCanvas'
 
-const CanvasDrawing = function ({ element, brush, refreshRate, onStart, onDraw, onEnd }) {
+const CanvasPainter = function ({ element, brush, refreshRate, onStart, onDraw, onEnd }) {
   this.brush = brush
   this.context = element.getContext('2d')
   this.createCanvas = createCanvas.bind(this)
@@ -77,27 +77,5 @@ const CanvasDrawing = function ({ element, brush, refreshRate, onStart, onDraw, 
     this.tempElement.addEventListener('mouseup', this.onMouseUp, false)
   }
 }
-/*
-const element = document.getElementById('drawing-canvas')
 
-const client = new CanvasDrawing({
-  element: document.getElementById('random-canvas')
-})
-
-const canvasDrawing = new CanvasDrawing({
-  element,
-  refreshRate: 3,
-  brush: {
-    size: 10,
-    color: 'black'
-  },
-  onStart: (brush) => { client.changeBrush(brush) },
-  onDraw: (points) => { client.points.push(points); client.Paint() },
-  onEnd: () => { client.applyStroke() }
-})
-
-canvasDrawing.init()
-
-canvasDrawing.changeBrush({size: 2})
-*/
 export default CanvasDrawing
