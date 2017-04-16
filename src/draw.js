@@ -1,4 +1,4 @@
-const onPaint = function (points) {
+const Paint = function (points) {
   'use strict'
 
   const tempContext = this.tempContext
@@ -37,4 +37,4 @@ const onPaint = function (points) {
   tempContext.stroke()
 }
 
-export default onPaint
+export default Paint

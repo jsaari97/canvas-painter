@@ -78,4 +78,4 @@ const CanvasPainter = function ({ element, brush, refreshRate, onStart, onDraw, 
   }
 }
 
-export default CanvasDrawing
+export default CanvasPainter
