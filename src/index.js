@@ -78,9 +78,17 @@ const CanvasPainter = function ({ element, brush, refreshRate, onStart, onDraw, 
     this.tempElement.addEventListener('mousedown', this.onMouseDown, false)
     this.tempElement.addEventListener('mouseup', this.onMouseUp, false)
   }
-  this.addEventListener('hello', e => {
-    console.log('Hello World ', e)
-  }, false)
+
+  this.watch = () => {
+    this.addEventListener('onDraw', e => {
+      this.points.push(e.detail)
+      this.Paint()
+    }, false)
+
+    this.addEventListener('onEnd', e => {
+      this.applyStroke()
+    }, false)
+  }
 }
 
 export default CanvasPainter

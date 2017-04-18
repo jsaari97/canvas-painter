@@ -1,8 +1,8 @@
-const Paint = function (points) {
+const Paint = function () {
   'use strict'
 
   const tempContext = this.tempContext
-  const pts = points || this.points
+  const pts = this.points
 
   if (pts.length < 3) {
     let b = pts[0]
