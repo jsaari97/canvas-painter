@@ -54,6 +54,7 @@ const CanvasPainter = function ({ element, brush, refreshRate, onStart, onDraw, 
 
   this.onMouseDown = (e) => {
     this.tempElement.addEventListener('mousemove', this.addClick, false)
+    this.tempElement.addEventListener('mouseleave', this.onMouseUp, false)
 
     if (typeof this.onStart === 'function') {
       this.onStart(this.brush)
@@ -64,6 +65,7 @@ const CanvasPainter = function ({ element, brush, refreshRate, onStart, onDraw, 
 
   this.onMouseUp = (e) => {
     this.tempElement.removeEventListener('mousemove', this.addClick, false)
+    this.tempElement.removeEventListener('mouseleave', this.onMouseUp, false)
 
     this.applyStroke()
 
@@ -76,6 +78,9 @@ const CanvasPainter = function ({ element, brush, refreshRate, onStart, onDraw, 
     this.tempElement.addEventListener('mousedown', this.onMouseDown, false)
     this.tempElement.addEventListener('mouseup', this.onMouseUp, false)
   }
+  this.addEventListener('hello', e => {
+    console.log('Hello World ', e)
+  }, false)
 }
 
 export default CanvasPainter
