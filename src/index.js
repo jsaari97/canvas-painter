@@ -80,12 +80,12 @@ const CanvasPainter = function ({ element, brush, refreshRate, onStart, onDraw, 
   }
 
   this.watch = () => {
-    this.addEventListener('onDraw', e => {
+    window.addEventListener('onDraw', e => {
       this.points.push(e.detail)
       this.Paint()
     }, false)
 
-    this.addEventListener('onEnd', e => {
+    window.addEventListener('onEnd', e => {
       this.applyStroke()
     }, false)
   }
