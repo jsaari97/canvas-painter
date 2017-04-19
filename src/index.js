@@ -14,6 +14,7 @@ const CanvasPainter = function ({ element, brush, refreshRate, onStart, onDraw, 
   this.count = 0
   this.onEnd = onEnd
   this.onStart = onStart
+  this.role = ''
 
   this.changeBrush(this.brush)
 
@@ -75,19 +76,40 @@ const CanvasPainter = function ({ element, brush, refreshRate, onStart, onDraw, 
   }
 
   this.init = () => {
-    this.tempElement.addEventListener('mousedown', this.onMouseDown, false)
-    this.tempElement.addEventListener('mouseup', this.onMouseUp, false)
+    if (this.role !== 'painter') {
+      if (this.role === 'guesser') {
+        window.removeEventListener('onDraw', this.onDrawEvent, false)
+        window.removeEventListener('onEnd', this.applyStroke, false)
+      }
+      this.tempElement.addEventListener('mousedown', this.onMouseDown, false)
+      this.tempElement.addEventListener('mouseup', this.onMouseUp, false)
+      this.role = 'painter'
+    }
   }
 
-  this.watch = () => {
-    window.addEventListener('onDraw', e => {
-      this.points.push(e.detail)
-      this.Paint()
-    }, false)
+  this.clearCanvas = () => {
+    this.context.clearRect(0, 0, element.width, element.height)
+    this.count = 0
+    this.points = []
+  }
 
-    window.addEventListener('onEnd', e => {
-      this.applyStroke()
-    }, false)
+  this.onDrawEvent = (e) => {
+    this.points.push(e.detail)
+    this.Paint()
+  }
+
+  window.addEventListener('clearCanvas', this.clearCanvas, false)
+
+  this.watch = () => {
+    if (this.role !== 'guesser') {
+      if (this.role === 'painter') {
+        this.tempElement.removeEventListener('mousedown', this.onMouseDown, false)
+        this.tempElement.removeEventListener('mouseup', this.onMouseUp, false)
+      }
+      window.addEventListener('onDraw', this.onDrawEvent, false)
+      window.addEventListener('onEnd', this.applyStroke, false)
+      this.role = 'guesser'
+    }
   }
 }
 
